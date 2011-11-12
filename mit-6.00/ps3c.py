@@ -1,5 +1,5 @@
 # Problem Set 2
-# Name: Qiu Ying
+# Name: Geeeqie
 # Time: 00:30
 #
 # Problem 3

@@ -1,5 +1,5 @@
 # Problem Set 3 (Part I)
-# Name: Qiu Ying
+# Name: Geeeqie
 # Time: 00:15
 #
 

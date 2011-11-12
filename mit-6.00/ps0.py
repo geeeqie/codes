@@ -1,5 +1,5 @@
 # Problem Set 0
-# Name: Qiu Ying
+# Name: Geeeqie
 # Timer: 0:05
 
 print 'Enter your last name:'

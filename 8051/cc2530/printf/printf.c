@@ -65,8 +65,8 @@ void main(void)
 {
 	/* set main clock source to 32MHz */
 	SLEEPCMD &= ~0x04;
-	__asm nop __endasm;
 	while(!(SLEEPSTA & 0x40));
+	__asm nop __endasm;
 	CLKCONCMD &= ~0x47;
 	SLEEPCMD |= 0x04; 
 

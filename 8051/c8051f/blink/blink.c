@@ -3,7 +3,7 @@
  * only test on C8051F340
  *
  * @author Geeeqie <geeeqie@gmail.com>
- * @date 2011/11/17
+ * @date 2011/11/26
  * @description
  */
 #include <C8051F340.h>

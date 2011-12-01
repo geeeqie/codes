@@ -1,7 +1,7 @@
 /*
  * Timer
  *
- * @author Qiu Ying <qiuying@mail.nwpu.edu.cn>
+ * @author Geeeqie <Geeeqie@gmail.com>
  * @date 2011/11/30
  * @description
  *   Blink an LED on PE6&PE7 with Timer1A at 1Hz

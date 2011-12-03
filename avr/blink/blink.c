@@ -16,13 +16,13 @@ void delayms(uint16_t millis) {
 }
 
 int main(void) {
-        DDRA |= 1<<PA0 | 1<<PA1 | 1<<PA2; /* set PA1 to output */
+        DDRD |= 1<<PD5 | 1<<PD6 | 1<<PD7; /* set PA1 to output */
         while(1) {
                 //PORTA &= ~(1<<PA2); /* LED on */
-		PORTA = ~0;
+		PORTD = ~0;
                 delayms(100);
                 // PORTA |= 1<<PA2; /* LED off */
-		PORTA = 0;
+		PORTD = 0;
                 delayms(900);
         }
         return 0;

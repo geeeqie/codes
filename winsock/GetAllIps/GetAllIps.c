@@ -1,4 +1,10 @@
-#include <winsock2.h>
+/*
+ * GetAllIps.c
+ *
+ * @author Geeeqie@gmail.com
+ * @date 2011/12/04
+ * @description
+ */
 #include <stdio.h>
 #include <stdlib.h>
 

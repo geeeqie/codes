@@ -1,13 +1,14 @@
-default: LocalhostInfo.obj
-	link LocalhostInfo.obj ws2_32.lib iphlpapi.lib
-LocalhostInfo.obj: LocalhostInfo.c
-	cl -c LocalhostInfo.c
+default: LocalHostInfo.obj
+	link LocalHostInfo.obj ws2_32.lib iphlpapi.lib
+LocalHostInfo.obj: LocalHostInfo.c
+	cl -c LocalHostInfo.c
 
-gcc: LocalhostInfo.o
-	gcc -o LocalhostInfo.exe LocalhostInfo.o -lws2_32 -liphlpapi
-LocalhostInfo.o: LocalhostInfo.c
-	gcc -c LocalhostInfo.c
+CC=i486-mingw32-gcc
+gcc: LocalHostInfo.o
+	$(CC) -o LocalHostInfo.exe LocalHostInfo.o -lws2_32 -liphlpapi
+LocalHostInfo.c.o: LocalHostInfo.c
+	$(CC) -c LocalHostInfo.c
 
 .PHONY:clean
 clean:
-	rm -f LocalhostInfo.o LocalhostInfo.obj LocalhostInfo.exe
+	rm -f LocalHostInfo.o LocalHostInfo.obj LocalHostInfo.exe

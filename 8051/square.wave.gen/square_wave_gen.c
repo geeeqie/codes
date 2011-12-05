@@ -6,7 +6,7 @@
  * @description
  */
 
-#include <reg52.h>
+#include <mcs51reg.h>
 #include "os.h"
 
 void toggle_led(void)

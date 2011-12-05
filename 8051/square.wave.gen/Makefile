@@ -1,18 +1,14 @@
-APP=square_wave_gen
-default: os.obj $(APP).obj
-	bl51 $(APP).OBJ,os.OBJ
-	oh51 $(APP)
+objs=square_wave_gen.o os.o
+CC=sdcc
+default: square_wave_gen.rel os.rel
+	$(CC) square_wave_gen.rel os.rel
+	packihx square_wave_gen.ihx > square_wave_gen.hex
+	objcopy -Iihex -Obinary square_wave_gen.hex square_wave_gen.bin
+square_wave_gen.rel: square_wave_gen.c os.h
+	$(CC) -c square_wave_gen.c
+os.rel: os.c os.h
+	$(CC) -c os.c
 
-os.obj: os.c os.h
-	c51 os.c
-$(APP).obj: $(APP).c
-	c51 $(APP).c
-
+.PHONY:clean
 clean:
-	rm -f os.LST
-	rm -f os.OBJ
-	rm -f $(APP).OBJ
-	rm -f $(APP).LST
-	rm -f $(APP).hex
-	rm -f $(APP).M51
-	rm -f $(APP)
+	rm -f os.asm os.ihx os.lnk os.lst os.map os.mem os.rel os.rst os.sym square_wave_gen.asm square_wave_gen.lst square_wave_gen.rel square_wave_gen.sym square_wave_gen.ihx  square_wave_gen.lnk  square_wave_gen.map  square_wave_gen.mem  square_wave_gen.rst square_wave_gen.bin square_wave_gen.hex

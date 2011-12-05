@@ -6,7 +6,7 @@
  * @description
  */
 
-#include <reg52.h>
+#include <mcs51reg.h>
 #include "os.h"
 
 /**************** System Services ********************/
@@ -37,7 +37,7 @@ enum {
 	TIMER_ON,
 };
 
-void hw_timer_isr() interrupt 1 using 1
+void hw_timer_isr() __interrupt 1
 {
 	unsigned char i;
 
@@ -114,8 +114,6 @@ unsigned char add_task(void (* func)(void))
 	}
 	return FAIL;
 }
-
-void booted();
 
 void main(void)
 {

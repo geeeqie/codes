@@ -11,15 +11,15 @@ int main(int argc, char ** argv)
 	sockfd = socket(AF_INET, SOCK_STREAM,0);
 	bzero(&serveraddr, sizeof(serveraddr));
 	serveraddr.sin_family = AF_INET;
-	serveraddr.sin_port = htons(9003);
+	serveraddr.sin_port = htons(13);
 	inet_pton(AF_INET, argv[1], &serveraddr.sin_addr);
 	connect(sockfd, (SA *) &serveraddr, sizeof(serveraddr));
 
 	while( (n = read(sockfd, buf, BUF_MAX)) > 0)
 	{
 		printf("read %d bytes\n", n);
-		//buf[n] = 0;
-		//fputs(buf,stdout);
+		buf[n] = 0;
+		fputs(buf,stdout);
 	}
 	exit(0);
 	

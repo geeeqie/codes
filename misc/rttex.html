@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>LaTeX在线实时编辑器</title>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [["$","$"],["\(","\)"]]
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full">
+</script>
+
+<style type="text/css">
+#MathInput{
+    width:80%;
+}
+#MathOutput{
+    width:80%;
+    height:10em;
+    background:#dddddd;
+}
+</style>
+
+</head>
+<body>
+    <center>
+        <h1>LaTeX在线编辑器（实时显示）</h1>
+
+<textarea id="MathInput" rows="10" onkeyup="UpdateMath(this.value)" ></textarea>
+
+<br>
+
+<div id="MathOutput">
+${}$
+</div>
+    </center>
+
+</body>
+
+</html>
+
+<script>
+  //
+  //  Use a closure to hide the local variables from the
+  //  global namespace
+  //
+  (function () {
+    var QUEUE = MathJax.Hub.queue;  // shorthand for the queue
+    var math = null;                // the element jax for the math output.
+
+    //
+    //  Get the element jax when MathJax has produced it.
+    //
+    QUEUE.Push(function () {
+      math = MathJax.Hub.getAllJax("MathOutput")[0];
+    });
+
+    //
+    //  The onchange event handler that typesets the
+    //  math entered by the user
+    //
+    window.UpdateMath = function (TeX) {
+      QUEUE.Push(["Text",math,"{"+TeX+"}"]);
+    }
+  })();
+</script>

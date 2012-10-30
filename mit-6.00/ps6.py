@@ -2,7 +2,7 @@
 #
 # The 6.00 Word Game
 #
-# author: Geeeqie
+# Name: Geeeqie
 
 import random
 import string
@@ -219,14 +219,15 @@ def play_hand(hand, word_list):
         display_hand(hand)
         start_time = time.time()
         #userWord = raw_input('Enter word, or a . to indicate that you are finished: ')
-        userWord = pick_best_word(hand)
+        #userWord = pick_best_word(hand)
+        userWord = pick_best_word_faster(hand)
         end_time = time.time()
         total_time = end_time - start_time
-        print 'It took %0.2f sec to provide your answer' % total_time
+        print 'It took %f sec to provide your answer' % total_time
 
         time_left -= total_time
         if time_left > 0:
-            print 'You have %0.2f sec remaining' % time_left
+            print 'You have %f sec remaining' % time_left
         else:
             is_time_exceeded = True
         if userWord == '.':
@@ -239,11 +240,11 @@ def play_hand(hand, word_list):
                 if not is_time_exceeded:
                     points = get_word_score(userWord, initial_handlen) / total_time
                     total += points
-                    print '%s earned %0.2f points. Total: %0.2f points' % (userWord, points, total)
+                    print "'%s' earned %f points. Total: %f points" % (userWord, points, total)
                 else:
-                    print "Total time exceeds %.2f seconds. You scored %0.2f points" % (time_limit, total)
+                    print "Total time exceeds %.2f seconds. You scored %f points" % (time_limit, total)
                 hand = update_hand(hand, userWord)
-    print 'Total score: %0.2f points.' % total
+    print 'Total score: %f points.' % total
 
 
 #
@@ -322,19 +323,50 @@ def get_time_limit(points_dict, k):
     end_time = time.time()
     return (end_time - start_time) * k
 
+rearrange_dict = {}
 def get_word_rearrangements():
-    d = {}
     for word in word_list:
-        d[''.join(sorted(word))] = word
+        rearrange_dict[''.join(sorted(word))] = word
 
+def get_sorted_word_from_hand(s, hand):
+    keys = hand.keys()
+    word = ''
+    for i in range(len(s)):
+        word += keys[i]*s[i]
+    #print "sorted word is " + word
+    return word
+
+subset_dict = {}
 
 def pick_best_word_faster(hand):
+    global subset_dict
     best_word = '.'
     max_points = 0
-    keys = hand.keys()
-    #TODO
+    subset_dict = {}
+    find_subset(hand.values())
+    #print "----subset_dict.keys()----"
+    #print subset_dict.keys()
+    for s in subset_dict.keys():
+        w = get_sorted_word_from_hand(s, hand)
+        if w in rearrange_dict:
+            score = get_word_score(w, HAND_SIZE)
+            if  score > max_points:
+                max_points = score
+                best_word = rearrange_dict[w]
+    return best_word
 
-    
+
+def find_subset(val):
+    global subset_dict
+    tval = tuple(val)
+    if tval in subset_dict:
+        return
+    subset_dict[tval] = 1
+    for i in range(len(val)):
+        if val[i] > 0:
+            val[i] -= 1
+            find_subset(val)
+            val[i] += 1
         
 #
 # Build data structures used for entire session and play game
@@ -342,5 +374,9 @@ def pick_best_word_faster(hand):
 if __name__ == '__main__':
     word_list = load_words()
     get_words_to_points(word_list)
+    get_word_rearrangements()
     play_game(word_list)
 
+## Problem 6 ##
+# pick_best_word: len(word_list)
+# pick_best_word_faster: 2^HAND_SIZE

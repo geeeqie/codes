@@ -15,12 +15,14 @@
 
 <style type="text/css">
 #MathInput{
-    width:80%;
+    width:100%;
 }
 #MathOutput{
-    width:80%;
-    height:10em;
+    width:100%;
+    height:60%;
     background:#dddddd;
+    text-align:center;
+    padding:1em;
 }
 </style>
 
@@ -29,7 +31,15 @@
     <center>
         <h1>LaTeX在线编辑器（实时显示）</h1>
 
-<textarea id="MathInput" rows="10" onkeyup="UpdateMath(this.value)" ></textarea>
+<textarea id="MathInput" rows="10" onkeyup="UpdateMath(this.value)" >
+e^{i \pi} + 1 = 0 \\
+\sum_{i=1}^n a_i=0 \\
+f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 \\
+f(x,y,z) = 3y^2 z \left( 3 + \frac{7x+5}{1 + y^2} \right). \\
+\int^3_1 x^2\,dx \\
+\frac{x-3}{x+4} + \frac{1}{2}x^3 \\
+c_{l+2n}^j d^{j-1}_n= \sum_{l=0}^{D-1}h_lc_{l+2n}^j \\
+</textarea>
 
 <br>
 
@@ -63,7 +73,7 @@ ${}$
     //  math entered by the user
     //
     window.UpdateMath = function (TeX) {
-      QUEUE.Push(["Text",math,"{"+TeX+"}"]);
+      QUEUE.Push(["Text",math,"\\displaystyle{"+TeX+"}"]);
     }
   })();
 </script>

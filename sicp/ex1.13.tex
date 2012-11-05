@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+prove $Fib(n)$ closest to $\phi^n/\sqrt{5}$, $\phi=(1+\sqrt{5})/2$:
+
+\begin{align*}
+Fib(0) &= (\phi^0 - \psi^0)/\sqrt{5} = 0 \\
+Fib(1) &= (\phi^1 - \psi^1)/\sqrt{5} = 1 \\
+Fib(n) &= Fib(n-1) + Fib(n-2)\\
+&= (\phi^{n-1}-\psi^{n-1})/\sqrt{5} - (\phi^{n-2}-\psi^{n-2})/\sqrt{5} \\
+&= (\phi^{n-1}+\phi^{n-2}-(\psi^{n-1}+\psi^{n-2}))/\sqrt{5} \\
+&= (\phi^{n-2}(\phi+1)-\psi^{n-2}(\psi+1))/\sqrt{5} \\
+&\because \phi^2=\phi+1,\psi^2=\psi+1 \\
+Fib(n)&= (\phi^n-\psi^n)/\sqrt{5} \\
+&\because |\psi| < 1 \therefore |\frac{\psi^n}{\sqrt{5}}|<1 \\
+&\therefore \textit{$Fib(n)$ closest to $\phi^n/\sqrt{5}$}
+\end{align*}
+\end{document}

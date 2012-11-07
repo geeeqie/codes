@@ -1,0 +1,8 @@
+(defun my-cons (x y)
+  (lambda (m) (funcall m x y)))
+(defun my-car (z)
+  (funcall z (lambda (p q) p)))
+(defun my-cdr (z)
+  (funcall z (lambda (p q) q)))
+(my-car (my-cons 1 2))
+(my-cdr (my-cons 1 2))

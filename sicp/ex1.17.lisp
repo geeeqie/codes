@@ -1,0 +1,10 @@
+(defun my-double (x)
+  (+ x x))
+(defun halve (x)
+  (/ x 2))
+(defun fast* (a b)
+  (cond ((= b 0) 0)
+	((= (mod b 2) 1) (+ a
+			    (fast* a (- b 1))))
+	(t (my-double (fast* a (halve b))))))
+(fast* 2 10)

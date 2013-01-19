@@ -1,0 +1,118 @@
+sum的例子中i是线程私有的变量，sum是线程共享变量。
+即使各个线程有自己的栈，但原来栈的内容是共享的。
+
+#define STR "I'm in the heap"
+
+int main(void)
+{
+	int i;
+	int local_array[3] = {1,2,3};
+	char *str_ptr;
+
+	str_ptr = malloc(sizeof(STR));
+	strcpy(str_ptr, STR);
+	#pragma omp parallel for
+	for (i = 0; i < 2; i++) {
+		printf("[%d] i=%d, local_array=[%d,%d,%d], str=%s [0x%08X]\n",
+				omp_get_thread_num(),
+				i,
+				local_array[0], local_array[1], local_array[2],
+				(uint32_t)str_ptr, str_ptr);
+	}
+	return 0;
+}
+
+$ ./varshare
+[0] i=0, local_array=[1,2,3], str=I'm in the heap [0x09E2C008]
+[1] i=1, local_array=[1,2,3], str=I'm in the heap [0x09E2C008]
+
+---
+
+parallel for是否对所有for循环万能？
+答曰：否
+
+--
+
+反例一：
+for (i = 2; i < 100; i++)
+    if (i == 50) break;
+
+编译报错：parafor.c:15:3: 错误：进出 OpenMP 结构块的分支无效
+
+不允许存在提前退出循环的语句，如break,return,exit,goto
+
+--
+
+反例二：
+
+    for (p = head; p != NULL; p = p->next) {
+    	...
+    }
+
+编译报错：
+parafor.c:17:17: 错误：无效的控制谓词
+parafor.c:17:30: 错误：无效的自增语句
+
+for循环必须遵循以下标准才能并行执行：
+for (index = start; index {<,<=,>=,>} end; {++,--,+=,-=,=}
+
+--
+
+反例三：
+
+求fibonacci数
+
+int fib[10] = {1,1};
+
+#pragma omp parallel for
+for (i = 2; i < 10; i++) {
+	fib[i] = fib[i-1] + fib[i-2];
+	printf("%d ", fib[i]);
+}
+
+$ ./fib
+0 0 2 3 0 0 0 0
+$ ./fib
+2 3 0 3 0 3 0 3
+
+2 3 5 8 13 21 34 55
+
+并行的for里不能有数据依赖，不然结果出错，且编译器无法查出。
+
+--
+线程私有变量：
+打印出二维坐标，(0 0) (0 1) (1 0) (1 1)
+
+	int i, j;
+
+	#pragma omp parallel for
+	for (i = 0; i < 2; i++) {
+		for (j = 0; j < 2; j++) {
+			printf("(%d %d) ", i, j);
+		}
+	}
+
+$ ./twofor
+(0 0) (0 1) (1 0)
+
+有两种情况：将内层循环并行化；将外层循环并行化。
+内层并行时，结果是正确的。外层并行时结果是错误的，需作修正：
+
+#pragma omp parallel for private(j)
+
+---
+
+OpenMP系统如何知道所需创建线程的个数？
+答曰：
+OMP_NUM_THREADS环境变量
+$ echo $OMP_NUM_THREADS
+
+$ export OMP_NUM_THREADS=4
+$ ./hello
+Hello OpenMP.
+Hello OpenMP.
+Hello OpenMP.
+Hello OpenMP.
+
+---
+

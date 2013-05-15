@@ -1,0 +1,2 @@
+default:
+	clang daemonize.c

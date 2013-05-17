@@ -32,9 +32,9 @@ void daemonize()
     for (int i = 0; i < rl.rlim_max; i++)
         close(i);
 
-    int fd0 = open("/dev/null", O_RDWR);
-    int fd1 = dup(0);
-    int fd2 = dup(0);
+    open("/dev/null", O_RDWR);
+    dup(0);
+    dup(0);
 }
 
 int main(void)

@@ -1,0 +1,47 @@
+#!/usr/bin/python2
+#
+# run 'judge.py xxx.py' in the dir where 'xxx.in xxx.out' is there
+
+import difflib
+import os
+import sys
+import time
+
+def compare(file1, file2):
+    strfile = lambda x: file(x).readlines()
+
+    diff = difflib.unified_diff(strfile(file1), strfile(file2))
+    print '-'*10 + file1 + '-'*10
+    l = list(diff)
+    if l:
+        print ''.join(l)
+    else:
+        print "[OK]"
+
+pyprog = "python2"
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print """usage: run 'judge.py <-pypy> xxx.py' in the dir where 'xxx.in xxx.out' is there"""
+        sys.exit(0)
+    if sys.argv[1] == '-pypy':
+        pyprog = "pypy"
+        prog_file = sys.argv[2]
+    else:
+        prog_file = sys.argv[1]
+
+    if not os.path.exists(prog_file):
+        print "file '%s' does not exists" % prog_file
+        sys.exit(1)
+    my_out_fname = "temp.out"
+    for fname in os.listdir("."):
+        if fname.endswith(".in"):
+            command = "%s %s < %s > %s"%(pyprog, prog_file, fname, my_out_fname)
+            start=time.time()
+            os.system(command)
+            end=time.time()
+            out_fname = fname[:-3] + ".out"
+
+            compare(out_fname, my_out_fname)
+            print "time:", end-start
+
+    os.remove(my_out_fname)

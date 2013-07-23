@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+#
+# gift1.in1  gift1.in4  gift1.in7  gift1.ou1  gift1.ou4  gift1.ou7
+# gift1.in2  gift1.in5  gift1.in8  gift1.ou2  gift1.ou5  gift1.ou8
+# gift1.in3  gift1.in6  gift1.in9  gift1.ou3  gift1.ou6  gift1.ou9
+#
+# rename to test0.in test0.out ....
+#
+#
+# input1.txt  input3.txt  input5.txt  input7.txt  output1.txt  output3.txt  output5.txt  output7.txt
+# input2.txt  input4.txt  input6.txt  input8.txt  output2.txt  output4.txt  output6.txt  output8.txt
+
+
+import re
+import os
+
+ext_dict = {"in":"in", "ou":"out", "output":"out", "input":"in"}
+
+for filename in os.listdir("."):
+    match = re.match(r"(.+)\.(in|ou)([0-9]+)", filename)
+    if match:
+#        new_name = "%s-%s.%s" % (match.group(1), match.group(3), ext_dict[match.group(2)])
+        new_name = "test%s.%s" % (match.group(3), ext_dict[match.group(2)])
+        print filename + "->" + new_name
+        os.rename(filename, new_name)
+
+    match = re.match(r"(input|output)([0-9]+)\.txt", filename)
+    if match:
+        new_name = "test%s.%s" % (match.group(2), ext_dict[match.group(1)])
+        print filename + "->" + new_name
+        os.rename(filename, new_name)

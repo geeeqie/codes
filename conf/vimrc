@@ -1,0 +1,137 @@
+syntax on
+set hlsearch
+set mouse=nv
+set cindent
+set incsearch
+filetype plugin indent on
+colorscheme default
+map grep :grep -InR "\<<cword>\>" *<CR><CR>:cw<CR>
+set helplang=cn
+let &termencoding=&encoding
+set fileencodings=utf-8,gbk,cp936
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
+set expandtab
+set softtabstop=4
+
+"----- for python -----
+autocmd FileType python setlocal et sta sw=4 sts=4
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
+"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+"set completeopt+=longest
+
+"离开插入模式后自动关闭预览窗口
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+ 
+"回车即选中当前项
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+ 
+"上下左右键的行为
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" :
+"\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" :
+"\<PageUp>"
+"----- for python END -----
+
+map <C-K> 5
+map <C-J> 5
+map . <C-K>
+map , <C-J>
+
+" map <F1> same as ESC
+nmap <F1> <ESC>
+imap <F1> <ESC>
+
+" Window Manager
+"let g:winManagerWindowLayout='TagList|FileExplorer'
+let g:winManagerWindowLayout='FileExplorer'
+nmap wm :WMToggle<cr>
+
+"for cscope
+nmap  css :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap  csg :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap  csc :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap  cst :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap  cse :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap  csf :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap  csi :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap  csd :cs find d <C-R>=expand("<cword>")<CR><CR>
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+" Tag list
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+
+" for TinyOS
+map tos :!ctags $TOSCTAGS<CR><CR>
+map <F5> :make<CR>:cw<CR>
+
+
+function TosSignatureModule()
+	call setline(1,"/*")
+	call append(1, " * ".expand("%<"))
+	call append(2, " *")
+	call append(3, " * @author Qiu Ying <qiuying@mail.nwpu.edu.cn>")
+	call append(4, " * @date ".strftime("%Y/%m/%d"))
+	call append(5, " * @description")
+	call append(6, " */")
+	call append(7, "module ".expand("%<")." {")
+	call append(8, "}")
+	call append(9, "implementation {")
+	call append(10, "}")
+	endf
+function TosSignatureConfigure()
+	call setline(1,"/*")
+	call append(1, " * ".expand("%<"))
+	call append(2, " *")
+	call append(3, " * @author Qiu Ying <qiuying@mail.nwpu.edu.cn>")
+	call append(4, " * @date ".strftime("%Y/%m/%d"))
+	call append(5, " * @description")
+	call append(6, " */")
+	call append(7, "configuration ".expand("%<")." {")
+	call append(8, "}")
+	call append(9, "implementation {")
+	call append(10, "}")
+	endf
+function TosSignatureInterface()
+	call setline(1,"/*")
+	call append(1, " * ".expand("%<"))
+	call append(2, " *")
+	call append(3, " * @author Qiu Ying <qiuying@mail.nwpu.edu.cn>")
+	call append(4, " * @date ".strftime("%Y/%m/%d"))
+	call append(5, " * @description")
+	call append(6, " */")
+	call append(7, "interface ".expand("%<")." {")
+	call append(8, "}")
+	endf
+
+function Qytitle()
+	call setline(1,"/*")
+	call append(1, " * ".expand("%<"))
+	call append(2, " *")
+	call append(3, " * @author Qiu Ying <qiuying@mail.nwpu.edu.cn>")
+	call append(4, " * @date ".strftime("%Y/%m/%d"))
+	call append(5, " * @description")
+	call append(6, " */")
+endf
+function Geeeqie()
+	call setline(1,"/*")
+	call append(1, " * ".expand("%<"))
+	call append(2, " *")
+	call append(3, " * @author Geeeqie <geeeqie@gmail.com>")
+	call append(4, " * @date ".strftime("%Y/%m/%d"))
+	call append(5, " * @description")
+	call append(6, " */")
+endf
+map qy :call Qytitle()<CR>
+map gq :call Geeeqie()<CR>
+map conf :call TosSignatureConfigure()<CR>
+map mod :call TosSignatureModule()<CR>
+map int :call TosSignatureInterface()<CR>
+

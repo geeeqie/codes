@@ -1,0 +1,44 @@
+#URxvt.font:xft:Monaco:pixelsize=12
+URxvt.font:xft:Monaco:pixelsize=13:normal:antialias=true,xft:Wenquanyi Bitmap Song:pixelsize=14:normal:antialias=false
+#URxvt.font:xft:Source Code Pro:pixelsize=14:regular:antialias=true,xft:Wenquanyi Bitmap Song:pixelsize=15:normal:antialias=false
+#URxvt.font:xft:Dejavu Sans Mono:pixelsize=14:normal:antialias=true,xft:Wenquanyi Bitmap Song:pixelsize=15:normal:antialias=false
+URxvt.perl-ext-common: default,tabbed,-selection-popup
+URxvt.tabbed.tab-fg: 8
+URxvt.tabbed.tab-bg: 12
+URxvt.tabbed.tabbar-fg: 8
+URxvt.tabbed.tabbar-bg: 7
+
+Rxvt.background:#000000
+Rxvt.foreground:#FFFFFF
+URxvt.multichar_encoding:utf-8
+URxvt.scrollBar_right:True
+Rxvt.scrollBar:Fault
+URxvt*termName:xterm
+
+#URxvt.inputMethod:ibus
+#URxvt.preeditType:OverTheSpot
+#URxvt.boldFont:xft:Terminus:bold
+#URxvt.boldItalicFont:xft:Monaco
+#URxvt.italicFont:xft:Monaco
+#URxvt.lineSpace:2pt
+
+!URxvt.colorBD:yellow
+!URxvt.colorUL:Green
+!URxvt.color0:black
+!URxvt.color1:red3
+!URxvt.color2:springgreen
+!URxvt.color3:wheat3
+!!URxvt.color4:navy
+!URxvt.color5:magenta4
+!URxvt.color6:steelblue1
+!URxvt.color7:gray85
+!URxvt.color8:gray10
+!URxvt.color9:SkyBlue3
+!URxvt.color10:chartreuse3
+!URxvt.color11:lightgoldenrod2
+URxvt.color12:SkyBlue1
+!URxvt.color13:pink1
+!URxvt.color14:lightblue1
+!URxvt.color15:#dbeff9
+!URxvt.color4:SkyBlue1          #重新指定ansi的蓝色和背景冲突了
+!URxvt.color12:#BFE1FF          #重新指定ansi的高亮蓝色

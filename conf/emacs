@@ -1,0 +1,43 @@
+;;;
+;(setq split-width-threshold 1)
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+;;; for common lisp
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
+(require 'slime)
+(slime-setup '(slime-fancy))
+(global-set-key (kbd "RET") 'newline-and-indent)
+(show-paren-mode t)
+(setq show-paren-style 'parentheses)
+(setq default-major-mode 'text-mode)
+
+(require 'geiser-install)
+
+;;; ;;; pretty lambda
+;;; (require 'pretty-lambdada)
+;;; (global-pretty-lambda-mode)
+;;; 
+;;; ;;; for python-mode
+;;; (autoload 'python-mode "python-mode.el" "Python mode." t)
+;;; (setq auto-mode-alist (append '(("/*.\.py$" . python-mode)) auto-mode-alist))
+;;; (add-to-list 'interpreter-mode-alist '("python" . python-mode))
+;;; 
+;;; ;;; for nesc
+;;; (setq load-path (cons (expand-file-name "X") load-path))
+;;; (autoload 'nesc-mode "nesc.el")
+;;; (add-to-list 'auto-mode-alist '("\\.nc\\'" . nesc-mode))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Monaco" :foundry "unknown" :slant normal :weight normal :height 98 :width normal)))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (manoj-dark)))
+ '(inhibit-startup-screen t))

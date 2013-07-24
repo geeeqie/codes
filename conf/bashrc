@@ -1,0 +1,33 @@
+# Check for an interactive session
+[ -z "$PS1" ] && return
+
+alias ls='ls --color=auto'
+#if [ -f ~/.dircolors ]; then
+#        eval `dircolors ~/.dircolors`
+#fi
+alias em='emacs -nw'
+alias e='emacsclient -n'
+export PS1='\[\033[00;32m\][\u@\h \W]\$ \[\033[00m\]'
+if [ -z $DISPLAY ]
+then
+	setterm -blength 0
+else
+	xset b off
+    export TERM=xterm
+fi
+export EDITOR=vim
+
+#for ns2
+## export PATH=$PATH:/home/qy/workspace/ns2/ns-allinone-2.35/bin:/home/qy/workspace/ns2/ns-allinone-2.35/tcl8.5.10/unix:/home/qy/workspace/ns2/ns-allinone-2.35/tk8.5.10/unix
+## export LD_LIBRARY_PATH=/home/qy/workspace/ns2/ns-allinone-2.35/otcl-1.14:/home/qy/workspace/ns2/ns-allinone-2.35/lib
+## export TCL_LIBRARY=/home/qy/workspace/ns2/ns-allinone-2.35/tcl8.5.10/library
+export PATH=$PATH:/home/qy/android-sdk/platform-tools:/home/qy/android-sdk/tools
+
+alias v='vim'
+
+#source $HOME/git/npumote/tinyos.sh
+source $HOME/.git-completion.bash 
+
+complete -cf sudo
+
+export MINICOM="-m -c on"

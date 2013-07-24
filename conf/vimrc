@@ -15,30 +15,37 @@ set autoindent
 set smartindent
 set expandtab
 set softtabstop=4
+set hidden
 
-"----- for python -----
-autocmd FileType python setlocal et sta sw=4 sts=4
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
-"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-"set completeopt+=longest
+" man 3 
+map K :!man 3 <C-R>=expand("<cword>")<CR><CR>
 
-"离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
- 
-"回车即选中当前项
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
- 
-"上下左右键的行为
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" :
-"\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" :
-"\<PageUp>"
-"----- for python END -----
+set completeopt=menu,menuone
 
+" SuperTab option for context aware completion
+"let g:SuperTabDefaultCompletionType='context'
+
+" SuperTab option for context aware completion fall back
+"let g:SuperTabContextDefaultCompletionType='<c-x><c-o>'
+
+"----- for clang -----
+let g:clang_snippets=1
+let g:clang_snippets_engine='ultisnips'
+
+"----- for YCM -----
+"let g:ycm_confirm_extra_conf = 0
+"map <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"nmap <C-\> :YcmForceCompileAndDiagnostics<CR>
+"imap <C-\> <ESC>:YcmForceCompileAndDiagnostics<CR>
+
+"----- for syntastic -----
+let g:syntastic_error_symbol='ER'
+let g:syntastic_warning_symbol='WA'
+let g:syntastic_c_compiler='clang'
+"let g:syntastic_c_compiler_options = '-nostdinc -nostdlibinc -nobuiltininc'
+
+
+" --- for qy ---
 map <C-K> 5
 map <C-J> 5
 map . <C-K>
@@ -53,25 +60,12 @@ imap <F1> <ESC>
 let g:winManagerWindowLayout='FileExplorer'
 nmap wm :WMToggle<cr>
 
-"for cscope
-nmap  css :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap  csg :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap  csc :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap  cst :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap  cse :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap  csf :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap  csi :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap  csd :cs find d <C-R>=expand("<cword>")<CR><CR>
-set cscopequickfix=s-,c-,d-,i-,t-,e-
-
 " Tag list
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 
 " for TinyOS
 map tos :!ctags $TOSCTAGS<CR><CR>
-map <F5> :make<CR>:cw<CR>
-
 
 function TosSignatureModule()
 	call setline(1,"/*")

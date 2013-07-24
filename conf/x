@@ -1,0 +1,17 @@
+#!/bin/sh
+export LANG=zh_CN.UTF-8
+export DISPLAY=:1.0
+export XMODIFIERS='@im=yong'  
+export GTK_IM_MODULE="xim"  
+export QT_IM_MODULE="xim"  
+X $DISPLAY >/dev/null 2>&1 &
+rox --rox-session &
+openbox &
+lxpanel &
+#fcitx -d
+#bus-daemon -x -r -d&
+yong -d
+#sleep 1
+#easystroke&
+#dropboxd&
+

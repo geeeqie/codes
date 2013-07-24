@@ -1,0 +1,9 @@
+#!/bin/sh
+systemctl stop hostapd
+systemctl stop dnsmasq
+systemctl stop iptables
+systemctl start hostapd
+ifconfig wlp8s0u1u3 192.168.64.1
+systemctl start dnsmasq
+systemctl start iptables
+iptables -t nat -A POSTROUTING -o enp1s0 -j MASQUERADE

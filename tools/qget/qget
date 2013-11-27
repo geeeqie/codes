@@ -1,0 +1,20 @@
+#!/bin/sh
+
+USER=qy
+VPS=vps6.nwpu.info
+WGET_FLAGS="--no-check-certificate --progress=bar:force -c"
+VPSURL=http://$VPS/$FILENAME
+VPSDIR=/var/www
+
+if [ -n "$1" ]; then
+    URL=$1
+    FILENAME=$(basename $URL)
+    ssh $USER@$VPS wget $WGET_FLAGS -P$VPSDIR $URL
+    LENGTH=`curl -Is $VPSURL | grep "Content-Length:" | awk '{print $2}'`
+    NTHREADS=`python -c "print(int(($LENGTH/1000)**0.45))"`
+    echo "Download with $NTHREADS threads"
+    axel -a -n $NTHREADS $VPSURL
+    ssh $USER@$VPS "rm $VPSDIR/$FILENAME"
+else
+    echo "usage: qget [url]"
+fi

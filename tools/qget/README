@@ -1,0 +1,31 @@
+QGet
+
+= Usage =
+
+ qget [url]
+
+
+= Introduction
+
+Qget is tool to download file with a remote machine.
+
+For example, if you want to download http://www.example.com/file.tar.gz
+Qget will first download it on the remote machine, then download it with
+a multithread downloader called axel.
+
+
+= Speed up =
+
+Add the following to you ~/.ssh/config
+<<<<<<
+
+# Reuse SSH Connection
+Host *
+ ControlMaster auto
+  ControlPath /tmp/%r@%h:%p
+
+>>>>>>
+
+Open a console and make a ssh connection to remote machine, then left it open.
+It will speed up ssh connection.
+

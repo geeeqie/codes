@@ -1,0 +1,30 @@
+# $Id: PKGBUILD 64643 2012-02-17 13:30:17Z foutrelis $
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Roman G <drakosha@au.ru>
+
+pkgname=axel
+pkgver=2.4
+pkgrel=3
+pkgdesc="Download accelerator, with IPv6 support"
+arch=('i686' 'x86_64')
+url="http://axel.alioth.debian.org/"
+license=('GPL')
+depends=('glibc')
+source=(http://alioth.debian.org/frs/download.php/3015/$pkgname-$pkgver.tar.gz)
+sha256sums=('359a57ab4e354bcb6075430d977c59d33eb3e2f1415a811948fa8ae657ca8036')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  patch -p1 < $startdir/20_ipv6.patch
+  patch -p1 < $startdir/progress-bar.patch
+
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

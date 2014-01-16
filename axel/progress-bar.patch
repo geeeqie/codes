@@ -1,0 +1,13 @@
+diff --git a/text.c b/text.c
+index 2f4421b..d5ed81a 100644
+--- a/text.c
++++ b/text.c
+@@ -497,7 +497,7 @@ static void print_alternate_output(axel_t *axel)
+ 		if(axel->conn[i].currentbyte<axel->conn[i].lastbyte)
+ 		{
+ 			if(now <= axel->conn[i].last_transfer + axel->conf->connection_timeout/2 )
+-				putchar(i+'0');
++				putchar((i%10)+'0');
+ 			else
+ 				putchar('#');
+ 		} else 

@@ -1,5 +1,10 @@
 ;;;
 ;(setq split-width-threshold 1)
+
+(add-hook 'sml-mode-hook
+          (lambda ()
+            (define-key sml-mode-map [return] 'newline)))
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;;; for common lisp
@@ -12,8 +17,9 @@
 (setq show-paren-style 'parentheses)
 (setq default-major-mode 'text-mode)
 
-(require 'geiser-install)
-
+;;;(require 'geiser-install)
+(require 'sml-mode)
+(require 'quack)
 ;;; ;;; pretty lambda
 ;;; (require 'pretty-lambdada)
 ;;; (global-pretty-lambda-mode)

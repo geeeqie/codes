@@ -48,3 +48,6 @@ bindkey -k F2 resize +1
 bindkey "^[[5;2~" eval "copy" "stuff ^u"
 bindkey -m "^[[5;2~" stuff ^u
 bindkey -m "^[[6;2~" stuff ^d
+
+defencoding utf-8
+encoding utf-8 utf-8

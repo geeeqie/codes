@@ -3,7 +3,6 @@ set hlsearch
 set mouse=nv
 set cindent
 set incsearch
-filetype plugin indent on
 colorscheme default
 map grep :grep -InR "\<<cword>\>" *<CR><CR>:cw<CR>
 set helplang=cn
@@ -16,6 +15,8 @@ set smartindent
 set expandtab
 set softtabstop=4
 set hidden
+
+set pastetoggle=<F12>
 
 " man 3 
 map K :!man 3 <C-R>=expand("<cword>")<CR><CR>
@@ -32,17 +33,13 @@ set completeopt=menu,menuone
 let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
 
-"----- for YCM -----
-"let g:ycm_confirm_extra_conf = 0
-"map <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"nmap <C-\> :YcmForceCompileAndDiagnostics<CR>
-"imap <C-\> <ESC>:YcmForceCompileAndDiagnostics<CR>
-
 "----- for syntastic -----
 let g:syntastic_error_symbol='ER'
 let g:syntastic_warning_symbol='WA'
 let g:syntastic_c_compiler='clang'
+let g:syntastic_cpp_compiler='clang++'
 "let g:syntastic_c_compiler_options = '-nostdinc -nostdlibinc -nobuiltininc'
+let g:syntastic_cpp_compiler_options = '-std=c++11'
 
 
 " --- for qy ---
@@ -129,3 +126,23 @@ map conf :call TosSignatureConfigure()<CR>
 map mod :call TosSignatureModule()<CR>
 map int :call TosSignatureInterface()<CR>
 
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+Bundle 'vim-ruby/vim-ruby'
+
+filetype plugin indent on     " required!
+
+" Make search results appear in the middle of the screen
+:nnoremap n nzz
+:nnoremap N Nzz
+:nnoremap * *zz
+:nnoremap # #zz
+:nnoremap g* g*zz
+:nnoremap g# g#zz

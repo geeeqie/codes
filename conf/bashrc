@@ -13,7 +13,6 @@ then
 	setterm -blength 0
 else
 	xset b off
-    export TERM=xterm
 fi
 export EDITOR=vim
 
@@ -21,13 +20,19 @@ export EDITOR=vim
 ## export PATH=$PATH:/home/qy/workspace/ns2/ns-allinone-2.35/bin:/home/qy/workspace/ns2/ns-allinone-2.35/tcl8.5.10/unix:/home/qy/workspace/ns2/ns-allinone-2.35/tk8.5.10/unix
 ## export LD_LIBRARY_PATH=/home/qy/workspace/ns2/ns-allinone-2.35/otcl-1.14:/home/qy/workspace/ns2/ns-allinone-2.35/lib
 ## export TCL_LIBRARY=/home/qy/workspace/ns2/ns-allinone-2.35/tcl8.5.10/library
-export PATH=$PATH:/home/qy/android-sdk/platform-tools:/home/qy/android-sdk/tools
+## export PATH=$PATH:/home/qy/android-sdk/platform-tools:/home/qy/android-sdk/tools
 
 alias v='vim'
 
-#source $HOME/git/npumote/tinyos.sh
+source $HOME/git/npumote/tinyos.sh
 source $HOME/.git-completion.bash 
 
 complete -cf sudo
 
 export MINICOM="-m -c on"
+export GREP_OPTIONS='--color=auto'
+
+# for princeton's algorithm
+#test -r ~/algs4/bin/config.sh && source ~/algs4/bin/config.sh
+
+export PATH="/usr/lib/colorgcc/bin:$PATH:/opt/msp430-47/bin"

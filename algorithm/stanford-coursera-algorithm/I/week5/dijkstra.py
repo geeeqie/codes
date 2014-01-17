@@ -11,7 +11,7 @@ while True:
     n += 1
     try:
         for item in raw_input().split():
-            m = re.match(r'(\d+),(\d+)', item)
+            m = re.match(r'(\d+),(-?\d+)', item)
             if m:
                 v = int(m.group(1))
                 distance = int(m.group(2))
@@ -54,4 +54,6 @@ def dijkstra(G, s):
             relax(G, u, v)
 
 dijkstra(Graph, 1)
-print(map(lambda x:d[x], [7,37,59,82,99,115,133,165,188,197]))
+#print(map(lambda x:d[x], [7,37,59,82,99,115,133,165,188,197]))
+print d
+print pi

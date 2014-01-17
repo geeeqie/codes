@@ -1,0 +1,2 @@
+default:
+	g++ knight.cc

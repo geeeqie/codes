@@ -3,12 +3,12 @@
 USER=qy
 VPS=vps6.nwpu.info
 WGET_FLAGS="--no-check-certificate --progress=bar:force -c"
-VPSURL=http://$VPS/$FILENAME
 VPSDIR=/var/www
 
 if [ -n "$1" ]; then
     URL=$1
     FILENAME=$(basename $URL)
+    VPSURL="http://$VPS/$FILENAME"
     ssh $USER@$VPS wget $WGET_FLAGS -P$VPSDIR $URL
     LENGTH=`curl -Is $VPSURL | grep "Content-Length:" | awk '{print $2}'`
     NTHREADS=`python -c "print(int(($LENGTH/1000)**0.45))"`
